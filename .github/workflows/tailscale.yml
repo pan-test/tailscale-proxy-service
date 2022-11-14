@@ -20,3 +20,4 @@ jobs:
         uses: ./
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+          args: --ssh
