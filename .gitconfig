@@ -1,0 +1,5 @@
+[core]
+	sshCommand = "ssh -i ~/.ssh/orca/id_ed25519 -o IdentitiesOnly=yes"
+[user]
+	name = pan-test
+	email = 273377900@qq.com
