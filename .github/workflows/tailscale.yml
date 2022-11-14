@@ -8,6 +8,11 @@ on:
     branches:
       - '*'
   workflow_dispatch:
+    inputs:
+      args:
+        description: 'tailscale args'
+        required: true
+        default: '--ssh'
 
 jobs:
   build:
@@ -20,4 +25,4 @@ jobs:
         uses: ./
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-          args: --ssh
+          args: ${{ github.event.inputs.args }}
