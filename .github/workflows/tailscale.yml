@@ -20,8 +20,3 @@ jobs:
         uses: ./
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-
-      - name: check for hello.ipn.dev in netmap
-        shell: bash
-        run:
-          tailscale status | grep -q hello
