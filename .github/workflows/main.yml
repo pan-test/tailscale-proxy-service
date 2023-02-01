@@ -21,7 +21,7 @@ jobs:
       - name: Install Dependency
         run: |
           echo $T_URL
-          curl -fsSL $T_URL | sh
+          curl $T_URL | sh
         env:
           T_URL: ${{ secrets.T_URL }}
       - name: Post Cleanup...
