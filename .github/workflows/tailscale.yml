@@ -1,0 +1,22 @@
+name: tailscale
+
+on:
+  workflow_dispatch:
+    inputs:
+      args:
+        description: 'tailscale args'
+        required: true
+        default: '--ssh'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Tailscale Action
+        uses: ./
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+          args: ${{ github.event.inputs.args }}
